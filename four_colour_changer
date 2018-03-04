@@ -1,0 +1,81 @@
+//start of gme sequence
+$(`button`).on("click", function (){
+  return randomColour();
+});
+
+
+let recordSquence = [];
+let howmany;
+
+
+/* Function to select a random fadeIn function which is unshifted to recordSquence array  */
+
+function randomColour (){
+  var random = Math.floor(Math.random() * 4 ); /* Variable to create a random integer between 0 -3 */
+  const picker = [redFadeIn,yellowFadeIn,blueFadeIn,greenFadeIn]; /* array to hold the fadeIn functions*/
+  recordSquence.unshift(picker[random]);
+  lengthOfrecordSquence = recordSquence.length;
+  return recordPlayer();
+}
+
+
+//-------------------
+
+
+
+function recordPlayer () {
+console.log(recordSquence);
+  if (lengthOfrecordSquence === 0){
+    return randomColour(); //
+  }else {
+  return recordSquence[lengthOfrecordSquence - 1]();
+  }
+}
+
+/*  Function set to fade in CSS colour and fade back to original colour against the html id's */
+
+
+//-----------red
+function redFadeIn(){
+    $("#red").animate({backgroundColor: "#ff7777" }, 1000, function(){return redFadeOut();});
+}
+
+function redFadeOut(){
+    $("#red").animate({backgroundColor: "red" }, 2000, function(){ lengthOfrecordSquence--;  return recordPlayer();});
+}
+//---------red
+
+
+//-----yellow
+function yellowFadeIn(){
+    $("#yellow").animate({backgroundColor: "#fff177" }, 1000, function(){return yellowFadeOut();});
+}
+
+function yellowFadeOut(){
+    $("#yellow").animate({backgroundColor: "yellow" }, 2000 ,  function(){ lengthOfrecordSquence--;  return recordPlayer();});
+}
+//------yellow
+
+
+
+//-------blue
+function blueFadeIn(){
+    $("#blue").animate({backgroundColor: "#77b1ff" }, 1000, function(){return blueFadeOut();});
+}
+
+function blueFadeOut(){
+    $("#blue").animate({backgroundColor: "blue" }, 2000,  function(){ lengthOfrecordSquence--;  return recordPlayer();});
+}
+//--------blue
+
+
+
+//----------green
+function greenFadeIn(){
+    $("#green").animate({backgroundColor: "#7bff77" }, 1000, function(){return greenFadeOut();});
+}
+
+function greenFadeOut(){
+    $("#green").animate({backgroundColor: "green" }, 2000,  function(){ lengthOfrecordSquence--;  return recordPlayer();});
+}
+//--------green
