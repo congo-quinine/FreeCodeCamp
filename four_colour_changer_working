@@ -1,0 +1,187 @@
+/*  html */
+
+<div id="red" style="width:100px; height:100px; background-color:red"></div>
+
+<div id=yellow style="width:100px; height:100px; background-color:yellow"></div>
+
+<div id="blue" style="width:100px; height:100px; background-color:blue"></div>
+
+<div id="green" style="width:100px; height:100px; background-color:green"></div>
+
+<button> play</button>
+
+/*  html */
+
+
+/*  css */
+
+body{
+
+  background:white;
+}
+
+/* css */
+
+
+/*JavaScript*/
+
+
+
+
+//start of game sequence
+$(`button`).on("click", function (){
+  recordSquence = [];
+  playersInput = [];
+  return randomColour();
+});
+
+//array to hold the flash squence
+let recordSquence = [];
+//array to hold a copy of recordSquence array
+let compareSquence = [];
+// variable to hold the length of the recordSquence array
+let lengthOfrecordSquence;
+//--- Player Input section
+let playersInput = [];
+// copy of playerInput
+let copyOfplayersInput = [];
+
+/* Function to select a random fadeIn function which is unshifted to recordSquence array  */
+function randomColour (){
+  var random = Math.floor(Math.random() * 4 ); /* Variable to create a random integer between 0 -3 */
+  const picker = [redFadeIn,yellowFadeIn,blueFadeIn,greenFadeIn]; /* array to hold the fadeIn functions*/
+  recordSquence.unshift(picker[random]);
+  compareSquence = recordSquence.slice(0)
+  lengthOfrecordSquence = recordSquence.length;
+  return recordPlayer();
+}
+
+
+//-------------------
+function playerTurn () {
+  console.log(playersInput.length + ' player ')
+   console.log(recordSquence.length + ' record ')
+
+ console.log(copyOfplayersInput + ' copy of player');
+  console.log(compareSquence + ' copy of record')
+
+
+  if (playersInput.length === recordSquence.length && copyOfplayersInput[copyOfplayersInput.length -1] === compareSquence[compareSquence.length -1]){
+    playersInput = [];
+    copyOfplayersInput = [];
+
+    return randomColour();
+
+  }else if (copyOfplayersInput[copyOfplayersInput.length -1] === compareSquence[compareSquence.length - 1]){
+
+    copyOfplayersInput.pop();
+    compareSquence.pop();
+     console.log(copyOfplayersInput + ' copy of player 2 ');
+  console.log(compareSquence + ' copy of record 2')
+    return;
+
+  } else {
+
+    console.log('game over')
+
+    return;
+  }
+}
+
+$(`#yellow`).click(function (){
+
+playersInput.unshift(yellowFadeIn);
+copyOfplayersInput.unshift(yellowFadeIn);
+ return playerTurn();
+});
+
+$(`#blue`).click(function (){
+
+playersInput.unshift(blueFadeIn);
+ copyOfplayersInput.unshift(blueFadeIn);
+ return playerTurn();
+
+});
+
+$(`#red`).click(function (){
+
+playersInput.unshift(redFadeIn);
+  copyOfplayersInput.unshift(redFadeIn);
+ return playerTurn();
+
+
+});
+
+$(`#green`).click(function (){
+
+playersInput.unshift(greenFadeIn);
+copyOfplayersInput.unshift(greenFadeIn);
+ return playerTurn();
+
+});
+
+
+
+
+
+
+
+
+function recordPlayer () {
+console.log(recordSquence);
+  if (lengthOfrecordSquence === 0){
+    return; //
+  }else {
+  return recordSquence[lengthOfrecordSquence - 1]();
+  }
+}
+
+/*  Function set to fade in CSS colour and fade back to original colour against the html id's */
+
+
+//-----------red
+function redFadeIn(){
+    $("#red").animate({backgroundColor: "#ff7777" }, 1000, function(){return redFadeOut();});
+}
+
+function redFadeOut(){
+    $("#red").animate({backgroundColor: "red" }, 2000, function(){ lengthOfrecordSquence--;  return recordPlayer();});
+}
+//---------red
+
+
+//-----yellow
+function yellowFadeIn(){
+    $("#yellow").animate({backgroundColor: "#fff177" }, 1000, function(){return yellowFadeOut();});
+}
+
+function yellowFadeOut(){
+    $("#yellow").animate({backgroundColor: "yellow" }, 2000 ,  function(){ lengthOfrecordSquence--;  return recordPlayer();});
+}
+//------yellow
+
+
+
+//-------blue
+function blueFadeIn(){
+    $("#blue").animate({backgroundColor: "#77b1ff" }, 1000, function(){return blueFadeOut();});
+}
+
+function blueFadeOut(){
+    $("#blue").animate({backgroundColor: "blue" }, 2000,  function(){ lengthOfrecordSquence--;  return recordPlayer();});
+}
+//--------blue
+
+
+
+//----------green
+function greenFadeIn(){
+    $("#green").animate({backgroundColor: "#7bff77" }, 1000, function(){return greenFadeOut();});
+}
+
+function greenFadeOut(){
+    $("#green").animate({backgroundColor: "green" }, 2000,  function(){ lengthOfrecordSquence--;  return recordPlayer();});
+}
+//--------green
+
+/* JavaScript*/
